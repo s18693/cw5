@@ -16,10 +16,13 @@ create procedure promoteStudent
 as
 begin
 declare @counter int, @idNew int, @idOld int, @id int, @idS int, @idE int
-select @idOld = EnrollmentN.IdEnrollment from EnrollmentN where EnrollmentN.Semester = @semester and EnrollmentN.IdStudy = (select StudiesN.IdStudy from StudiesN where StudiesN.Name like @studies)
-select @counter = COUNT(*) from EnrollmentN where EnrollmentN.Semester = @semester+1 and EnrollmentN.IdStudy = (select StudiesN.IdStudy from StudiesN where StudiesN.Name like @studies)
+select @idOld = EnrollmentN.IdEnrollment from EnrollmentN 
+where EnrollmentN.Semester = @semester and EnrollmentN.IdStudy = (select StudiesN.IdStudy from StudiesN where StudiesN.Name like @studies)
+select @counter = COUNT(*) from EnrollmentN 
+where EnrollmentN.Semester = @semester+1 and EnrollmentN.IdStudy = (select StudiesN.IdStudy from StudiesN where StudiesN.Name like @studies)
 if (@counter = 1) begin
-select @idNew = EnrollmentN.IdEnrollment from EnrollmentN where EnrollmentN.Semester = @semester+1 and EnrollmentN.IdStudy = (select StudiesN.IdStudy from StudiesN where StudiesN.Name like @studies)
+select @idNew = EnrollmentN.IdEnrollment from EnrollmentN 
+where EnrollmentN.Semester = @semester+1 and EnrollmentN.IdStudy = (select StudiesN.IdStudy from StudiesN where StudiesN.Name like @studies)
 update StudentN
 set IdEnrollment = @idNew
 where StudentN.IdEnrollment = @idOld;
