@@ -9,7 +9,7 @@ using cw3.Services;
 
 namespace cw3.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class EnrollmentsController : ControllerBase
     {
@@ -42,9 +42,11 @@ namespace cw3.Controllers
         }
 
         // POST: api/Enrollments
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("enrollments")]
+        public void Post(string INumber, string FName, string LName, string BDate, string Studies)
         {
+            dbService.AddStudnet(INumber, FName, LName, BDate, Studies);
+            return Created("",);
         }
 
         // PUT: api/Enrollments/5

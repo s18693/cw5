@@ -29,7 +29,7 @@ namespace cw3
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddSingleton<IDbService, MockDbService>();
-            services.AddSingleton<IStudentsDbService, StudentDbService>();
+            services.AddSingleton<IStudentsDbService, SqlServerDbService>();
             services.AddControllers();
         }
 
