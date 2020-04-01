@@ -123,13 +123,44 @@ namespace cw3.Services
                 try
                 {
                     //@studies varchar(250), @semester int 
+
+                    //Need id
+                    int id = -1;
+                    command.CommandText = "select EnrollmentN.IdEnrollment from EnrollmentN inner join StudiesN on EnrollmentN.IdStudy ="+ promote.studies +" and StudiesN.Name like 'IT' where EnrollmentN.Semester =" + (promote.semester + 1);
+                    var dr = command.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        lastUseE = (int)dr[0];
+                        dr.Close();
+                    }
+                    if(!dr.Read())
+                    {
+                        dr.Close();
+                        command.CommandText = "select * from findMinEnrollmentN";
+                        var reader = command.ExecuteReader();
+                        
+                        if (reader.Read())
+                        {
+                            lastUseE = (int)reader[0];
+                            reader.Close();
+                        }
+                        else
+                        {
+                            reader.Close();
+                        }
+                    }
+
                     command.CommandText = "promoteStudent";
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("studies", promote.studies);
                     command.Parameters.AddWithValue("semester", promote.semester);
 
+                    //string s += client.InfoMessage;
+
                     command.ExecuteNonQuery();
                     transaction.Commit();
+
+                    msg = id;
 
                 }
                 catch (SqlException exc)

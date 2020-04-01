@@ -91,6 +91,8 @@ select * from StudentN;
 select * from EnrollmentN;
 select * from StudiesN;
 
+delete from EnrollmentN where EnrollmentN.IdEnrollment = 3;
+
 select StudentN.FirstName, StudentN.LastName, EnrollmentN.Semester from StudentN
 inner join EnrollmentN on StudentN.IdEnrollment = EnrollmentN.IdEnrollment
 where StudentN.IndexNumber = 's18693';
@@ -163,3 +165,7 @@ exec findMinEnrollmentN;
 select StudentN.IndexNumber from StudentN where StudentN.IndexNumber like 's1234';
 
 select * from EnrollmentN where EnrollmentN.IdEnrollment = 1;
+
+select EnrollmentN.IdEnrollment from EnrollmentN 
+inner join StudiesN on EnrollmentN.IdStudy = StudiesN.IdStudy and StudiesN.Name like 'IT'
+where EnrollmentN.Semester = 1;
