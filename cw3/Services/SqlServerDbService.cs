@@ -120,13 +120,12 @@ namespace cw3.Services
                 client.Open();
                 var transaction = client.BeginTransaction();
                 command.Transaction = transaction;
-                try
-                {
+                //try{
                     //@studies varchar(250), @semester int 
 
                     //Need id
                     int id = -1;
-                    command.CommandText = "select EnrollmentN.IdEnrollment from EnrollmentN inner join StudiesN on EnrollmentN.IdStudy ="+ promote.studies +" and StudiesN.Name like 'IT' where EnrollmentN.Semester =" + (promote.semester + 1);
+                    command.CommandText = "select EnrollmentN.IdEnrollment from EnrollmentN inner join StudiesN on EnrollmentN.IdStudy = StudiesN.IdStudy and StudiesN.Name like '" + promote.studies + "' where EnrollmentN.Semester =" + (promote.semester + 1);
                     var dr = command.ExecuteReader();
                     if (dr.Read())
                     {
@@ -161,14 +160,14 @@ namespace cw3.Services
                     transaction.Commit();
 
                     msg = id;
-
+                /*
                 }
                 catch (SqlException exc)
                 {
                     transaction.Rollback();
                     msg = -4;
                     return;
-                }
+                }*/
             }
         }
 
